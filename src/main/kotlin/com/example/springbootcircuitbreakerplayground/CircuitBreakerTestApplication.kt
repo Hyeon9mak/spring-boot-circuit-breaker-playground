@@ -1,11 +1,11 @@
-package com.example.springbootcircuitbreakerplayground.clientserver
+package com.example.springbootcircuitbreakerplayground
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class CircuitBreakerServerApplication
+class CircuitBreakerTestApplication
 
 fun main(args: Array<String>) {
-	runApplication<CircuitBreakerServerApplication>(*args)
+	runApplication<CircuitBreakerTestApplication>(*args)
 }
