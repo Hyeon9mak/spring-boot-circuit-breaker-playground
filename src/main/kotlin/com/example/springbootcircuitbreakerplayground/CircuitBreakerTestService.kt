@@ -1,28 +1,20 @@
 package com.example.springbootcircuitbreakerplayground
 
-import io.github.resilience4j.retry.annotation.Retry
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import org.springframework.stereotype.Service
 
 @Service
 class CircuitBreakerTestService {
 
-    private var count = 0
-
-    @Retry(
-        name = "getHelloWorld",
-        fallbackMethod = "getHelloUniverse",
-    )
-    fun getHelloWorld(): String {
-        count += 1
-
-        if (count in 6..10) {
-            throw Exception("Error")
+    @CircuitBreaker(name = "cat-image-circuit-breaker", fallbackMethod = "fallbackCatImage")
+    fun catImage(id: Long): String {
+        if (id < 10L) {
+            return "$id cat's image.png"
         }
-
-        return "Hello World"
+        throw RuntimeException("there is no cat's image for $id")
     }
 
-    fun getHelloUniverse(): String {
-        return "Hello Universe"
+    private fun fallbackCatImage(id: Long, t: Throwable): String {
+        return "fallback cat image.png"
     }
 }
